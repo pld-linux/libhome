@@ -1,0 +1,36 @@
+--- libhome-0.8.1/Makefile.in.orig	2004-03-31 14:50:56.000000000 +0200
++++ libhome-0.8.1/Makefile.in	2004-12-05 19:43:18.769962432 +0100
+@@ -96,20 +96,22 @@
+ install:: install-man install-lib
+ 
+ install-man:: home.conf.5
+-	${INSTALL_DATA} home.conf.5 ${mandir}/man5/
++	${INSTALL} -d $(DESTDIR)${mandir}/man5
++	${INSTALL_DATA} home.conf.5 $(DESTDIR)${mandir}/man5/
+ 
+ install-lib:: libhome.la home_finger
+-	${LIBTOOL} --mode=install ${INSTALL_DATA} libhome.la ${libdir}/
+-	test "@PRELOAD_LIB@" != "" && \
+-	${LIBTOOL} --mode=install ${INSTALL_DATA} @PRELOAD_LIB@ ${libdir}/
+-	${LIBTOOL} --mode=install ${INSTALL_PROGRAM} home_finger ${bindir}/
+-	-mkdir -p ${includedir}/home	
+-	${INSTALL_DATA} hpwd.h ${includedir}/home/pwd.h
+-	${INSTALL_DATA} hpwd.h ${includedir}/home/
+-	${INSTALL_DATA} hparam.h ${includedir}/home/
+-	${INSTALL_DATA} home_version.h ${includedir}/home/
++	${INSTALL} -d $(DESTDIR)${libdir} $(DESTDIR)/${bindir}
++	${LIBTOOL} --mode=install ${INSTALL_DATA} libhome.la $(DESTDIR)${libdir}/
++	test "@PRELOAD_LIB@" = "" || \
++	${LIBTOOL} --mode=install ${INSTALL_DATA} @PRELOAD_LIB@ $(DESTDIR)${libdir}/
++	${LIBTOOL} --mode=install ${INSTALL_PROGRAM} home_finger $(DESTDIR)${bindir}/
++	-mkdir -p $(DESTDIR)${includedir}/home	
++	${INSTALL_DATA} hpwd.h $(DESTDIR)${includedir}/home/pwd.h
++	${INSTALL_DATA} hpwd.h $(DESTDIR)${includedir}/home/
++	${INSTALL_DATA} hparam.h $(DESTDIR)${includedir}/home/
++	${INSTALL_DATA} home_version.h $(DESTDIR)${includedir}/home/
+ 	chmod +x libhome.sh
+-	${INSTALL_SCRIPT} libhome.sh ${bindir}/
++	${INSTALL_SCRIPT} libhome.sh $(DESTDIR)${bindir}/
+ 
+ compat:
+ 	-mkdir compat
