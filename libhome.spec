@@ -10,6 +10,7 @@ Source0:	http://mesh.dl.sourceforge.net/sourceforge/pll/%{name}-%{version}.tar.g
 URL:		http://pll.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	libtool
 BuildRequires:	mysql-devel
 BuildRequires:	openldap-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
