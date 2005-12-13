@@ -87,7 +87,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/home_finger
 %attr(755,root,root) %{_bindir}/libhome.sh
 %attr(755,root,root) %{_libdir}/libhome.so.*.*.*
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/home.conf
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/home.conf
 %{_mandir}/man5/home.conf.5*
 
 %files devel
