@@ -10,6 +10,7 @@ Source0:	http://dl.sourceforge.net/pll/%{name}-%{version}.tar.gz
 Patch0:		%{name}-DESTDIR.patch
 URL:		http://pll.sourceforge.net/
 BuildRequires:	automake
+BuildRequires:	groff
 BuildRequires:	mysql-devel
 BuildRequires:	openldap-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
