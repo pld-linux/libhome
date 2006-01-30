@@ -1,17 +1,20 @@
 Summary:	libhome - a configurable getpwnam(3) emulator
 Summary(pl):	libhome - konfigurowalny emulator funkcji getpwnam(3)
 Name:		libhome
-Version:	0.8.1
-Release:	0.1
+Version:	0.10.1
+Release:	1
 License:	LGPL v2+
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/pll/%{name}-%{version}.tar.gz
-# Source0-md5:	44f06ff97b594741f0558efb51960d29
+# Source0-md5:	fe0b4e581c62bc64eb13295eb7f2b0e5
 Patch0:		%{name}-DESTDIR.patch
 URL:		http://pll.sourceforge.net/
 BuildRequires:	automake
 BuildRequires:	groff
 BuildRequires:	mysql-devel
+BuildRequires:	db-devel
+BuildRequires:	pam-devel
+BuildRequires:	postgresql-devel
 BuildRequires:	openldap-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -60,8 +63,11 @@ Statyczna biblioteka libhome.
 %build
 cp -f /usr/share/automake/config.* .
 %configure \
+	--with-db4=%{_includedir} \
 	--with-ldap \
-	--with-mysql
+	--with-mysql \
+	--with-pgsql \
+	--with-pam
 %{__make}
 
 %install
@@ -69,10 +75,11 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_sysconfdir}
 
 %{__make} install \
-	bindir=$RPM_BUILD_ROOT%{_bindir} \
-	libdir=$RPM_BUILD_ROOT%{_libdir} \
-	includedir=$RPM_BUILD_ROOT%{_includedir} \
-	mandir=$RPM_BUILD_ROOT%{_mandir}
+	DESTDIR=$RPM_BUILD_ROOT \
+	bindir=%{_bindir} \
+	libdir=%{_libdir} \
+	includedir=%{_includedir} \
+	mandir=%{_mandir}
 
 install home.conf $RPM_BUILD_ROOT%{_sysconfdir}
 
@@ -85,18 +92,20 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc NEWS README
-%attr(755,root,root) %{_bindir}/home_finger
+%attr(755,root,root) %{_bindir}/home_*
+%attr(755,root,root) %{_sbindir}/home_*
 %attr(755,root,root) %{_bindir}/libhome.sh
-%attr(755,root,root) %{_libdir}/libhome.so.*.*.*
+%attr(755,root,root) %{_libdir}/lib*home*.so.*
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/home.conf
 %{_mandir}/man5/home.conf.5*
+%{_mandir}/man8/home_proxy.8*
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libhome.so
-%{_libdir}/libhome.la
+%attr(755,root,root) %{_libdir}/lib*home*.so
+%{_libdir}/lib*home*.la
 %{_includedir}/home
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/libhome.a
+%{_libdir}/lib*home*.a
