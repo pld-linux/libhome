@@ -11,11 +11,11 @@ Patch0:		%{name}-DESTDIR.patch
 URL:		http://pll.sourceforge.net/
 BuildRequires:	automake
 BuildRequires:	groff
-BuildRequires:	mysql-devel
 BuildRequires:	db-devel
+BuildRequires:	mysql-devel
+BuildRequires:	openldap-devel
 BuildRequires:	pam-devel
 BuildRequires:	postgresql-devel
-BuildRequires:	openldap-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -37,6 +37,11 @@ Summary:	Header files for libhome library
 Summary(pl):	Pliki nag³ówkowe biblioteki libhome
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	db-devel
+Requires:	mysql-devel
+Requires:	openldap-devel
+Requires:	pam-devel
+Requires:	postgresql-devel
 
 %description devel
 Header files for libhome library.
@@ -95,7 +100,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/home_*
 %attr(755,root,root) %{_sbindir}/home_*
 %attr(755,root,root) %{_bindir}/libhome.sh
-%attr(755,root,root) %{_libdir}/lib*home*.so.*
+%attr(755,root,root) %{_libdir}/lib*home*.so.*.*.*
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/home.conf
 %{_mandir}/man5/home.conf.5*
 %{_mandir}/man8/home_proxy.8*
