@@ -1,36 +1,58 @@
---- libhome-0.8.1/Makefile.in.orig	2004-03-31 14:50:56.000000000 +0200
-+++ libhome-0.8.1/Makefile.in	2004-12-05 19:43:18.769962432 +0100
-@@ -96,20 +96,22 @@
+diff -urN libhome-0.10.1.org/Makefile.in libhome-0.10.1/Makefile.in
+--- libhome-0.10.1.org/Makefile.in	2005-07-01 16:39:08.000000000 +0200
++++ libhome-0.10.1/Makefile.in	2006-01-30 14:20:28.943608000 +0100
+@@ -39,6 +39,7 @@
+ INSTALL_PROGRAM=@INSTALL_PROGRAM@
+ INSTALL_DATA=@INSTALL_DATA@
+ INSTALL_SCRIPT=@INSTALL_SCRIPT@
++LN_S=@LN_S@
+ 
+ CPPFLAGS=-I. @CPPFLAGS@ -DDEFAULT_HOME_CONF=\"@CONFFILE@\"
+ CC=@CC@
+@@ -114,27 +115,30 @@
  install:: install-man install-lib
  
  install-man:: home.conf.5
 -	${INSTALL_DATA} home.conf.5 ${mandir}/man5/
-+	${INSTALL} -d $(DESTDIR)${mandir}/man5
-+	${INSTALL_DATA} home.conf.5 $(DESTDIR)${mandir}/man5/
+-@DO_PROXY@	${INSTALL_DATA} home_proxy.8 ${mandir}/man8/
++	-install -d $(DESTDIR)${mandir}/man5
++	-install -d $(DESTDIR)${mandir}/man8
++	${INSTALL_DATA} home.conf.5 $(DESTDIR)${mandir}/man5
++@DO_PROXY@	${INSTALL_DATA} home_proxy.8 $(DESTDIR)${mandir}/man8
  
- install-lib:: libhome.la home_finger
+ install-lib:: all
 -	${LIBTOOL} --mode=install ${INSTALL_DATA} libhome.la ${libdir}/
--	test "@PRELOAD_LIB@" != "" && \
+-	test "@PRELOAD_LIB@" = "" || \
 -	${LIBTOOL} --mode=install ${INSTALL_DATA} @PRELOAD_LIB@ ${libdir}/
 -	${LIBTOOL} --mode=install ${INSTALL_PROGRAM} home_finger ${bindir}/
+-	${LIBTOOL} --mode=install ${INSTALL_PROGRAM} home_su ${bindir}/
 -	-mkdir -p ${includedir}/home	
 -	${INSTALL_DATA} hpwd.h ${includedir}/home/pwd.h
 -	${INSTALL_DATA} hpwd.h ${includedir}/home/
 -	${INSTALL_DATA} hparam.h ${includedir}/home/
 -	${INSTALL_DATA} home_version.h ${includedir}/home/
-+	${INSTALL} -d $(DESTDIR)${libdir} $(DESTDIR)/${bindir}
-+	${LIBTOOL} --mode=install ${INSTALL_DATA} libhome.la $(DESTDIR)${libdir}/
-+	test "@PRELOAD_LIB@" = "" || \
-+	${LIBTOOL} --mode=install ${INSTALL_DATA} @PRELOAD_LIB@ $(DESTDIR)${libdir}/
-+	${LIBTOOL} --mode=install ${INSTALL_PROGRAM} home_finger $(DESTDIR)${bindir}/
-+	-mkdir -p $(DESTDIR)${includedir}/home	
-+	${INSTALL_DATA} hpwd.h $(DESTDIR)${includedir}/home/pwd.h
-+	${INSTALL_DATA} hpwd.h $(DESTDIR)${includedir}/home/
-+	${INSTALL_DATA} hparam.h $(DESTDIR)${includedir}/home/
-+	${INSTALL_DATA} home_version.h $(DESTDIR)${includedir}/home/
++	-install -d $(DESTDIR)${libdir}
++	${LIBTOOL} --mode=install ${INSTALL_DATA} libhome.la $(DESTDIR)${libdir}
++	-install -d $(DESTDIR)${bindir}
++	${LIBTOOL} --mode=install ${INSTALL_PROGRAM} home_finger $(DESTDIR)${bindir}
++	${LIBTOOL} --mode=install ${INSTALL_PROGRAM} home_su $(DESTDIR)${bindir}
++	-install -d  $(DESTDIR)${includedir}/home
++	${INSTALL_DATA} hpwd.h $(DESTDIR)${includedir}/home
++	$(LN_S) hpwd.h $(DESTDIR)${includedir}/home/pwd.h
++	${INSTALL_DATA} hparam.h $(DESTDIR)${includedir}/home
++	${INSTALL_DATA} home_version.h $(DESTDIR)${includedir}/home
  	chmod +x libhome.sh
 -	${INSTALL_SCRIPT} libhome.sh ${bindir}/
-+	${INSTALL_SCRIPT} libhome.sh $(DESTDIR)${bindir}/
+-@DO_PROXY@	${LIBTOOL} --mode=install ${INSTALL_PROGRAM} home_proxy ${sbindir}/
+-@DO_NSS@	${LIBTOOL} --mode=install ${INSTALL_DATA} ${NSS_LIB} ${libdir}/
++	${INSTALL_SCRIPT} libhome.sh $(DESTDIR)${bindir}
++@DO_PROXY@	-install -d $(DESTDIR)${sbindir}
++@DO_PROXY@	${LIBTOOL} --mode=install ${INSTALL_PROGRAM} home_proxy $(DESTDIR)${sbindir}
++@DO_NSS@	${LIBTOOL} --mode=install ${INSTALL_DATA} ${NSS_LIB} $(DESTDIR)${libdir}
+ 
+ install-nss:: nss
+-@DO_NSS@	${LIBTOOL} --mode=install ${INSTALL_DATA} ${NSS_LIB} ${libdir}/
++@DO_NSS@	${LIBTOOL} --mode=install ${INSTALL_DATA} ${NSS_LIB} $(DESTDIR)${libdir}
  
  compat:
  	-mkdir compat
