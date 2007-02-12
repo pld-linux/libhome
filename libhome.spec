@@ -1,5 +1,5 @@
 Summary:	libhome - a configurable getpwnam(3) emulator
-Summary(pl):	libhome - konfigurowalny emulator funkcji getpwnam(3)
+Summary(pl.UTF-8):   libhome - konfigurowalny emulator funkcji getpwnam(3)
 Name:		libhome
 Version:	0.10.1
 Release:	3
@@ -25,16 +25,16 @@ It's intended to replace getpwnam within system daemons who need user
 authentification or identification when the users are listed on
 foreign servers.
 
-%description -l pl
-Biblioteka obs≥uguje MySQL, Open LDAP lub plik /etc/passwd.
+%description -l pl.UTF-8
+Biblioteka obs≈Çuguje MySQL, Open LDAP lub plik /etc/passwd.
 
-Jej zadaniem jest zamiana wywo≥ania getpwnam w demonach systemowych,
-ktÛre potrzebuj± uwierzytelnienia lub identyfikacji uøytkownika w
-oparciu o dane z obcych serwerÛw.
+Jej zadaniem jest zamiana wywo≈Çania getpwnam w demonach systemowych,
+kt√≥re potrzebujƒÖ uwierzytelnienia lub identyfikacji u≈ºytkownika w
+oparciu o dane z obcych serwer√≥w.
 
 %package devel
 Summary:	Header files for libhome library
-Summary(pl):	Pliki nag≥Ûwkowe biblioteki libhome
+Summary(pl.UTF-8):   Pliki nag≈Ç√≥wkowe biblioteki libhome
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	db-devel
@@ -46,19 +46,19 @@ Requires:	postgresql-devel
 %description devel
 Header files for libhome library.
 
-%description devel -l pl
-Pliki nag≥Ûwkowe biblioteki libhome.
+%description devel -l pl.UTF-8
+Pliki nag≈Ç√≥wkowe biblioteki libhome.
 
 %package static
 Summary:	Static libhome library
-Summary(pl):	Statyczna biblioteka libhome
+Summary(pl.UTF-8):   Statyczna biblioteka libhome
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Static libhome library.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Statyczna biblioteka libhome.
 
 %prep
