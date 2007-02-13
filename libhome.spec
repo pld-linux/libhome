@@ -1,5 +1,5 @@
 Summary:	libhome - a configurable getpwnam(3) emulator
-Summary(pl.UTF-8):   libhome - konfigurowalny emulator funkcji getpwnam(3)
+Summary(pl.UTF-8):	libhome - konfigurowalny emulator funkcji getpwnam(3)
 Name:		libhome
 Version:	0.10.1
 Release:	3
@@ -34,7 +34,7 @@ oparciu o dane z obcych serwerów.
 
 %package devel
 Summary:	Header files for libhome library
-Summary(pl.UTF-8):   Pliki nagłówkowe biblioteki libhome
+Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libhome
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	db-devel
@@ -51,7 +51,7 @@ Pliki nagłówkowe biblioteki libhome.
 
 %package static
 Summary:	Static libhome library
-Summary(pl.UTF-8):   Statyczna biblioteka libhome
+Summary(pl.UTF-8):	Statyczna biblioteka libhome
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
