@@ -13,7 +13,7 @@ BuildRequires:	automake
 BuildRequires:	groff
 BuildRequires:	db-devel
 BuildRequires:	mysql-devel
-BuildRequires:	openldap-devel
+BuildRequires:	openldap-devel >= 2.4.6
 BuildRequires:	pam-devel
 BuildRequires:	postgresql-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -39,7 +39,7 @@ Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	db-devel
 Requires:	mysql-devel
-Requires:	openldap-devel
+Requires:	openldap-devel >= 2.4.6
 Requires:	pam-devel
 Requires:	postgresql-devel
 
