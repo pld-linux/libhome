@@ -1,17 +1,20 @@
 Summary:	libhome - a configurable getpwnam(3) emulator
 Summary(pl.UTF-8):	libhome - konfigurowalny emulator funkcji getpwnam(3)
 Name:		libhome
-Version:	0.10.1
-Release:	11
+Version:	0.10.2
+Release:	1
 License:	LGPL v2+
 Group:		Libraries
-Source0:	http://dl.sourceforge.net/pll/%{name}-%{version}.tar.gz
-# Source0-md5:	fe0b4e581c62bc64eb13295eb7f2b0e5
+Source0:	http://downloads.sourceforge.net/pll/%{name}-%{version}.tar.gz
+# Source0-md5:	f7129ae34d3c44d38ac785e7a1f7d509
 Patch0:		%{name}-DESTDIR.patch
+Patch1:		%{name}-db53.patch
 URL:		http://pll.sourceforge.net/
+BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	groff
 BuildRequires:	db-devel
+BuildRequires:	groff
+BuildRequires:	libtool
 BuildRequires:	mysql-devel
 BuildRequires:	openldap-devel >= 2.4.6
 BuildRequires:	pam-devel
@@ -64,15 +67,21 @@ Statyczna biblioteka libhome.
 %prep
 %setup -q
 %patch0 -p1 -b .orig
+%patch1 -p1
 
 %build
-cp -f /usr/share/automake/config.* .
+%{__libtoolize}
+%{__aclocal}
+%{__autoconf}
+%{__autoheader}
+# no automake call needed, automake is not in use here
 %configure \
 	--with-db4=%{_includedir} \
 	--with-ldap \
 	--with-mysql \
 	--with-pgsql \
-	--with-pam
+	--with-pam \
+	--with-proxy
 %{__make}
 
 %install
@@ -97,20 +106,27 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc NEWS README
-%attr(755,root,root) %{_bindir}/home_*
-%attr(755,root,root) %{_sbindir}/home_*
+%attr(755,root,root) %{_bindir}/home_finger
+%attr(755,root,root) %{_bindir}/home_su
 %attr(755,root,root) %{_bindir}/libhome.sh
-%attr(755,root,root) %{_libdir}/lib*home*.so.*.*.*
+%attr(755,root,root) %{_sbindir}/home_proxy
+%attr(755,root,root) %{_libdir}/libhome.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libhome.so.1
+%attr(755,root,root) %{_libdir}/libnss_home_proxy.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libnss_home_proxy.so.2
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/home.conf
 %{_mandir}/man5/home.conf.5*
 %{_mandir}/man8/home_proxy.8*
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/lib*home*.so
-%{_libdir}/lib*home*.la
+%attr(755,root,root) %{_libdir}/libhome.so
+%attr(755,root,root) %{_libdir}/libnss_home_proxy.so
+%{_libdir}/libhome.la
+%{_libdir}/libnss_home_proxy.la
 %{_includedir}/home
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/lib*home*.a
+%{_libdir}/libhome.a
+%{_libdir}/libnss_home_proxy.a

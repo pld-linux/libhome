@@ -1,0 +1,12 @@
+diff -uNr libhome-0.10.2.old/configure.in libhome-0.10.2/configure.in
+--- libhome-0.10.2.old/configure.in	2005-09-14 10:57:00.000000000 +0200
++++ libhome-0.10.2/configure.in	2012-09-07 15:32:48.676050226 +0200
+@@ -510,7 +510,7 @@
+   fi
+   case $db_version in
+   3) AC_SEARCH_LIBS(db_strerror, db-3.3 db-3.2 db-3.1 db-3.0 db-3 db3);;
+-  4) AC_SEARCH_LIBS(db_strerror, db-4.3 db-4.2 db-4.1 db-4.0 db-4 db4,,
++  4) AC_SEARCH_LIBS(db_strerror, db-4.3 db-4.2 db-4.1 db-4.0 db-4 db4 db,,
+       AC_SEARCH_LIBS(db_strerror_4002, db-4.2));;
+   esac
+ fi
