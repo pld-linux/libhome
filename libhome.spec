@@ -2,17 +2,17 @@ Summary:	libhome - a configurable getpwnam(3) emulator
 Summary(pl.UTF-8):	libhome - konfigurowalny emulator funkcji getpwnam(3)
 Name:		libhome
 Version:	0.10.2
-Release:	7
+Release:	8
 License:	LGPL v2+
 Group:		Libraries
-Source0:	http://downloads.sourceforge.net/pll/%{name}-%{version}.tar.gz
+Source0:	https://downloads.sourceforge.net/pll/%{name}-%{version}.tar.gz
 # Source0-md5:	f7129ae34d3c44d38ac785e7a1f7d509
 Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-db53.patch
-URL:		http://pll.sourceforge.net/
-BuildRequires:	autoconf
+URL:		https://pll.sourceforge.net/
+BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake
-BuildRequires:	db-devel
+BuildRequires:	db-devel >= 4
 BuildRequires:	groff
 BuildRequires:	libtool
 BuildRequires:	mysql-devel
@@ -40,7 +40,7 @@ Summary:	Header files for libhome library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libhome
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	db-devel
+Requires:	db-devel >= 4
 Requires:	mysql-devel
 Requires:	openldap-devel >= 2.4.6
 Requires:	pam-devel
@@ -66,7 +66,7 @@ Statyczna biblioteka libhome.
 
 %prep
 %setup -q
-%patch0 -p1 -b .orig
+%patch0 -p1
 %patch1 -p1
 
 %build
