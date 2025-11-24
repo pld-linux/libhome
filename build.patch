@@ -1,0 +1,11 @@
+--- libhome-0.10.2/home_finger.c~	2009-05-10 18:02:14.000000000 +0200
++++ libhome-0.10.2/home_finger.c	2025-11-24 19:54:14.203461062 +0100
+@@ -37,7 +37,7 @@ static char const rcsid[] UNUSED =
+ #include <stdio.h>
+ #include <unistd.h>
+ #include <errno.h>
+-
++#include <string.h>
+ 
+ extern int optind;
+ 

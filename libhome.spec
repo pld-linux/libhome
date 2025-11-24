@@ -2,13 +2,14 @@ Summary:	libhome - a configurable getpwnam(3) emulator
 Summary(pl.UTF-8):	libhome - konfigurowalny emulator funkcji getpwnam(3)
 Name:		libhome
 Version:	0.10.2
-Release:	9
+Release:	10
 License:	LGPL v2+
 Group:		Libraries
 Source0:	https://downloads.sourceforge.net/pll/%{name}-%{version}.tar.gz
 # Source0-md5:	f7129ae34d3c44d38ac785e7a1f7d509
 Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-db53.patch
+Patch2:		build.patch
 URL:		https://pll.sourceforge.net/
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake
@@ -68,6 +69,7 @@ Statyczna biblioteka libhome.
 %setup -q
 %patch -P0 -p1
 %patch -P1 -p1
+%patch -P2 -p1
 
 %build
 %{__libtoolize}
@@ -84,7 +86,7 @@ Statyczna biblioteka libhome.
 	--with-proxy
 
 %{__make} \
-	CFLAGS="%{rpmcflags}"
+	CFLAGS="%{rpmcflags} -DLDAP_DEPRECATED=1 -std=gnu17"
 
 %install
 rm -rf $RPM_BUILD_ROOT
